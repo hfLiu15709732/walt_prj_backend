@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
 import org.example.walt_prj_backend.pojo.dto.SocInfoDTO;
 import org.example.walt_prj_backend.pojo.entity.SocInfo;
 import org.example.walt_prj_backend.service.SocInfoService;
@@ -17,6 +18,7 @@ import java.util.List;
 /**
  * SOC芯片信息前端控制器
  */
+@Slf4j
 @RestController
 @RequestMapping("/socinfo")
 @Tag(name = "SOC芯片信息模块")
@@ -29,7 +31,7 @@ public class SocInfoController {
      * 添加SOC芯片信息
      */
     @PostMapping
-    @Operation(summary = "添加SOC芯片信息")
+    @Operation(summary = "添加信息")
     public ResponseMessage<Boolean> addSocInfo(@RequestBody SocInfo socInfo) {
         boolean success = socInfoService.save(socInfo);
         return success ? ResponseMessage.success("添加成功", true) : ResponseMessage.error("添加失败");
@@ -38,7 +40,7 @@ public class SocInfoController {
     /**
      * 根据ID删除SOC芯片信息
      */
-    @Operation(summary = "删除SOC芯片")
+    @Operation(summary = "删除信息")
     @DeleteMapping("/{id}")
     public ResponseMessage<Boolean> deleteSocInfo(@PathVariable Integer id) {
         boolean success = socInfoService.removeById(id);
@@ -49,7 +51,7 @@ public class SocInfoController {
      * 更新SOC芯片信息
      */
     @PutMapping
-    @Operation(summary = "修改SOC芯片")
+    @Operation(summary = "修改信息")
     public ResponseMessage<Boolean> updateSocInfo(@RequestBody SocInfo socInfo) {
         boolean success = socInfoService.updateById(socInfo);
         return success ? ResponseMessage.success("更新成功", true) : ResponseMessage.error("更新失败");
@@ -59,7 +61,7 @@ public class SocInfoController {
      * 根据ID查询SOC芯片信息
      */
     @GetMapping("/{id}")
-    @Operation(summary = "查询单一SOC芯片")
+    @Operation(summary = "单一查询")
     public ResponseMessage<SocInfo> getSocInfoById(@PathVariable Integer id) {
         SocInfo socInfo = socInfoService.getById(id);
         return socInfo != null ? ResponseMessage.success("查询成功", socInfo) : ResponseMessage.error(404, "未找到该SOC芯片信息");
@@ -74,7 +76,9 @@ public class SocInfoController {
     public ResponseMessage<Page<SocInfo>> getSocInfoPage(@RequestParam(defaultValue = "1") Integer pageNum,
                                                          @RequestParam(defaultValue = "10") Integer pageSize) {
         Page<SocInfo> page = new Page<>(pageNum, pageSize);
-        socInfoService.page(page);
+        Page<SocInfo> socInfoPage = socInfoService.page(page);
+        List<SocInfo> socInfoPageRecords = socInfoPage.getRecords();
+        log.info(socInfoPageRecords.toString());
         return ResponseMessage.success("分页查询成功", page);
     }
 

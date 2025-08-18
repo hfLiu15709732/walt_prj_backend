@@ -16,7 +16,7 @@ public class JwtUtil {
     // 密钥，请妥善保管，不要泄露
     private static final String SECRET = "your_secret_key_here"; 
     // 过期时间，单位毫秒，这里设置为1小时
-    private static final long EXPIRATION_TIME = 60 * 60 * 1000;
+    private static final long EXPIRATION_TIME = 24 * 60 * 60 * 1000;
 
     /**
      * 生成JWT Token
