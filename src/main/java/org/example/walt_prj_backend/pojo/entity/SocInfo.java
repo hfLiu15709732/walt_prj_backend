@@ -23,13 +23,13 @@ public class SocInfo {
     private Integer id;
 
     /**
-     * SOC名称
+     * SOC名称  需要
      */
     @TableField("name")
     private String name;
 
     /**
-     * 品牌ID
+     * 品牌ID    需要
      */
     @TableField("brand_id")
     private Integer brandId;
@@ -101,7 +101,7 @@ public class SocInfo {
     private String cpuManufacturingProcess;
 
     /**
-     * 生产制造厂商
+     * 生产制造厂商  需要
      */
     @TableField("manufacturer")
     private String manufacturer;
@@ -209,13 +209,13 @@ public class SocInfo {
     private String productPositioning;
 
     /**
-     * Geekbench 6单核跑分
+     * Geekbench 6单核跑分  order
      */
     @TableField("geekbench6_single_core")
     private Integer geekbench6SingleCore;
 
     /**
-     * Geekbench 6多核跑分
+     * Geekbench 6多核跑分   order
      */
     @TableField("geekbench6_multi_core")
     private Integer geekbench6MultiCore;

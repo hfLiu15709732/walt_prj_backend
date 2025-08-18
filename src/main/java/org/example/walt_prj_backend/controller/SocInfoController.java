@@ -4,10 +4,12 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.example.walt_prj_backend.pojo.dto.SocInfoDTO;
 import org.example.walt_prj_backend.pojo.entity.SocInfo;
 import org.example.walt_prj_backend.service.SocInfoService;
 import org.example.walt_prj_backend.utils.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,7 +19,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/socinfo")
-@Tag(name = "SOC芯片信息管理")
+@Tag(name = "SOC芯片信息模块")
 public class SocInfoController {
 
     @Autowired
@@ -63,15 +65,6 @@ public class SocInfoController {
         return socInfo != null ? ResponseMessage.success("查询成功", socInfo) : ResponseMessage.error(404, "未找到该SOC芯片信息");
     }
 
-    /**
-     * 查询所有SOC芯片信息
-     */
-    @GetMapping
-    @Operation(summary = "查询所有SOC芯片")
-    public ResponseMessage<List<SocInfo>> getAllSocInfos() {
-        List<SocInfo> socInfos = socInfoService.list();
-        return ResponseMessage.success("查询成功", socInfos);
-    }
 
     /**
      * 分页查询SOC芯片信息
@@ -85,17 +78,27 @@ public class SocInfoController {
         return ResponseMessage.success("分页查询成功", page);
     }
 
+
     /**
-     * 根据条件查询SOC芯片信息
+     * 条件查询 SOC 列表（POST + Body）
      */
-    @GetMapping("/search")
-    @Operation(summary = "条件查询SOC芯片")
-    public ResponseMessage<List<SocInfo>> searchSocInfos(@RequestParam(required = false) String name) {
-        QueryWrapper<SocInfo> queryWrapper = new QueryWrapper<>();
-        if (name != null && !name.isEmpty()) {
-            queryWrapper.like("name", name);
-        }
-        List<SocInfo> socInfos = socInfoService.list(queryWrapper);
-        return ResponseMessage.success("查询成功", socInfos);
+    @PostMapping("/list")
+    @Operation(summary = "条件查询")
+    public ResponseMessage<List<SocInfo>> listSocInfosByCondition(
+            @RequestBody SocInfoDTO.SocQueryDto queryDto) {
+        List<SocInfo> list = socInfoService.listByCondition(queryDto);
+        return ResponseMessage.success("查询成功", list);
+    }
+
+
+    /**
+     * 条件分页查询 SOC 芯片信息
+     */
+    @PostMapping("/page")
+    @Operation(summary = "条件查询（支持分页）")
+    public ResponseMessage<Page<SocInfo>> pageSocInfos(
+            @RequestBody @Validated SocInfoDTO.SocPageQueryDto dto) {
+        Page<SocInfo> page = socInfoService.pageByCondition(dto);
+        return ResponseMessage.success("分页查询成功", page);
     }
 }

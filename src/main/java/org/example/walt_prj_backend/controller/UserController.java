@@ -17,8 +17,8 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/auth")
-@Tag(name = "用户管理")
+@RequestMapping("/user")
+@Tag(name = "用户管理模块")
 public class UserController {
 
     @Autowired

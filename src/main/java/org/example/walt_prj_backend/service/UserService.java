@@ -1,7 +1,6 @@
 package org.example.walt_prj_backend.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import org.example.walt_prj_backend.pojo.entity.SocInfo;
 import org.example.walt_prj_backend.pojo.entity.User;
 
 /**
