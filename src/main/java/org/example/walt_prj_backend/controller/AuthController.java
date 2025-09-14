@@ -5,7 +5,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.example.walt_prj_backend.pojo.dto.UserDTO;
 import org.example.walt_prj_backend.pojo.vo.LoginVO;
 import org.example.walt_prj_backend.service.AuthService;
-import org.example.walt_prj_backend.service.UserService;
 import org.example.walt_prj_backend.utils.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -1,13 +1,9 @@
 package org.example.walt_prj_backend.controller;
 
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.example.walt_prj_backend.pojo.entity.SocInfo;
 import org.example.walt_prj_backend.pojo.entity.User;
-import org.example.walt_prj_backend.service.SocInfoService;
 import org.example.walt_prj_backend.service.UserService;
 import org.example.walt_prj_backend.utils.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
